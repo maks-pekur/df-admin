@@ -14,12 +14,17 @@ export const MainNav = ({
 	const routes = [
 		{
 			href: `/${params.storeId}/`,
-			label: 'Overview',
+			label: 'Головна',
 			active: pathname === `/${params.storeId}`,
 		},
 		{
+			href: `/${params.storeId}/products`,
+			label: 'Товари',
+			active: pathname === `/${params.storeId}/products`,
+		},
+		{
 			href: `/${params.storeId}/settings`,
-			label: 'Settings',
+			label: 'Налаштування',
 			active: pathname === `/${params.storeId}/settings`,
 		},
 	]
