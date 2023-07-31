@@ -1,7 +1,5 @@
-import { Container } from '@/components/Container'
-import { SettingsForm } from '@/components/SettingsForm'
-import { auth } from '@clerk/nextjs'
-import { redirect } from 'next/navigation'
+import { Container } from '@/components/container'
+import { SettingsForm } from '@/components/settings-form'
 
 interface SettingsPageProps {
 	params: {
@@ -9,20 +7,24 @@ interface SettingsPageProps {
 	}
 }
 
+async function getStore(storeId: string) {
+	try {
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/stores/${storeId}`
+		)
+
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {
-	const { userId } = auth()
-
-	if (!userId) {
-		redirect('/sign-in')
-	}
-
-	const store = await fetch(`http://localhost:8888/api/stores/${userId}`).then(
-		res => res.json()
-	)
-
-	if (!store) {
-		redirect('/')
-	}
+	const store = await getStore(params.storeId)
 	return (
 		<Container>
 			<SettingsForm initialData={store} />

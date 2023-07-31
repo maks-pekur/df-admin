@@ -2,6 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 
+import { formatter } from '@/lib/utils'
 import Image from 'next/image'
 import { CellAction } from './cell-actions'
 
@@ -41,11 +42,7 @@ export const columns: ColumnDef<productsColumn>[] = [
 		header: () => <div className="text-center">Ціна</div>,
 		cell: ({ row }) => {
 			const price = parseFloat(row.getValue('price'))
-			const formatted = new Intl.NumberFormat(process.env.NEXT_PUBLIC_LOCALES, {
-				style: 'currency',
-				currency: process.env.NEXT_PUBLIC_CURRENCY,
-			}).format(price)
-
+			const formatted = formatter.format(price)
 			return <div className="text-right font-medium">{formatted}</div>
 		},
 	},

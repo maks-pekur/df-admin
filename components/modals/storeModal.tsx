@@ -8,8 +8,8 @@ import * as z from 'zod'
 import { Button } from '../ui/button'
 
 import { useStoreModal } from '@/hooks/use-store-modal'
-import { ButtonLoading } from '../ButtonLoading'
-import { Modal } from '../Modal'
+import { Icons } from '../icons'
+import { Modal } from '../modal'
 import {
 	Form,
 	FormControl,
@@ -26,7 +26,7 @@ const formSchema = z.object({
 
 export const StoreModal = () => {
 	const storeModal = useStoreModal()
-	const [loading, setLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -37,13 +37,16 @@ export const StoreModal = () => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			setLoading(true)
-			const response = await axios.post('/api/stores', values)
-			window.location.assign(`/${response.data.id}`)
+			setIsLoading(true)
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/stores`,
+				values
+			)
+			window.location.assign(`/${res.data.id}`)
 		} catch (error) {
 			console.log(error)
 		} finally {
-			setLoading(false)
+			setIsLoading(false)
 		}
 	}
 
@@ -66,7 +69,7 @@ export const StoreModal = () => {
 										<FormLabel>Назва</FormLabel>
 										<FormControl>
 											<Input
-												disabled={loading}
+												disabled={isLoading}
 												placeholder="Введіть назву ресторану"
 												{...field}
 											/>
@@ -78,19 +81,19 @@ export const StoreModal = () => {
 
 							<div className="pt-6 space-x-2 flex items-center justify-end w-full">
 								<Button
-									disabled={loading}
+									disabled={isLoading}
 									variant="outline"
 									onClick={storeModal.onClose}
 								>
 									Відміна
 								</Button>
-								{loading ? (
-									<ButtonLoading />
-								) : (
-									<Button disabled={loading} type="submit">
-										Зберегти
-									</Button>
-								)}
+								<Button variant="outline" type="button" disabled={isLoading}>
+									{isLoading ? (
+										<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										'Github'
+									)}
+								</Button>
 							</div>
 						</form>
 					</Form>

@@ -1,7 +1,5 @@
-import axios from 'axios'
-
-import { Container } from '@/components/Container'
-import { Heading } from '@/components/Heading'
+import { Container } from '@/components/container'
+import { ProductsPageClient } from '@/components/products/products-page-client'
 import { DataTable } from '@/components/ui/data-table'
 import { columns } from '../../../../components/products/columns'
 
@@ -11,30 +9,27 @@ interface ProductsPageProps {
 	}
 }
 
-async function getData() {
+async function getProducts() {
 	try {
-		const res = await axios(`${process.env.API_URL}/products/`)
-		return res.data
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
 	} catch (error) {
 		console.log(error)
 	}
 }
 
 const ProductsPage: React.FC<ProductsPageProps> = async ({ params }) => {
-	const data = await getData()
+	const products = await getProducts()
 
 	return (
 		<Container>
-			{data ? (
-				<>
-					<Heading title="Products" description="" />
-					<DataTable searchKey="name" columns={columns} data={data} />
-				</>
-			) : (
-				<div className="flex items-center justify-center">
-					Products not found
-				</div>
-			)}
+			<ProductsPageClient />
+			<DataTable searchKey="name" columns={columns} data={products || []} />
 		</Container>
 	)
 }

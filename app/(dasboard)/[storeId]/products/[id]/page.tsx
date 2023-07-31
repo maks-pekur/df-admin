@@ -1,7 +1,5 @@
-import axios from 'axios'
-
-import { Container } from '@/components/Container'
-import { Heading } from '@/components/Heading'
+import { Container } from '@/components/container'
+import { Heading } from '@/components/heading'
 
 interface ProductPageProps {
 	params: {
@@ -10,25 +8,24 @@ interface ProductPageProps {
 	}
 }
 
-async function getData(id: string) {
-	const res = await axios(`${process.env.API_URL}/products/${id}`)
-	return res.data
+async function getProducts() {
+	try {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 const UpdateProductPage: React.FC<ProductPageProps> = async ({ params }) => {
-	const product = await getData(params.id)
-
 	return (
 		<Container>
-			{!product ? (
-				<div className="flex items-center justify-center">
-					Product not found
-				</div>
-			) : (
-				<div>
-					<Heading title="Оновлення товару" description="" />
-				</div>
-			)}
+			<Heading title="Оновлення товару" description="" />
 		</Container>
 	)
 }

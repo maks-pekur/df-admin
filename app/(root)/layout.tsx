@@ -1,4 +1,6 @@
-import { auth } from '@clerk/nextjs'
+import { authOptions } from '@/configs/auth'
+import axios from '@/configs/axios'
+import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export default async function SetupLayout({
@@ -6,20 +8,17 @@ export default async function SetupLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const { userId } = auth()
+	const session = await getServerSession(authOptions)
 
-	if (!userId) {
+	if (!session) {
 		redirect('/sign-in')
 	}
 
-	const res = await fetch(`${process.env.API_URL}/stores/${userId}`)
-	const store = await res.json()
+	const { data: stores } = await axios('/stores')
 
-	console.log(store)
-
-	// if (store) {
-	// 	redirect(`/${store.id}`)
-	// }
+	if (stores) {
+		redirect(`/${stores[0].id}/`)
+	}
 
 	return <>{children}</>
 }

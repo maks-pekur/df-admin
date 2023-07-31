@@ -8,8 +8,8 @@ import { slugify } from 'transliteration'
 import * as z from 'zod'
 import { Button } from '../ui/button'
 
-import { ButtonLoading } from '../ButtonLoading'
-import { Modal } from '../Modal'
+import { ButtonLoading } from '../button-loading'
+import { Modal } from '../modal'
 import {
 	Form,
 	FormControl,
