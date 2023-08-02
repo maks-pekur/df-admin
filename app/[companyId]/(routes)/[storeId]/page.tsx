@@ -12,11 +12,12 @@ import { Activity, Banknote, CreditCard, Download, Users } from 'lucide-react'
 
 interface DashboardPageProps {
 	params: {
+		companyId: string
 		storeId: string
 	}
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+const StorePage: React.FC<DashboardPageProps> = async ({ params }) => {
 	const orders = []
 	const customers = []
 	return (
@@ -127,4 +128,4 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
 	)
 }
 
-export default DashboardPage
+export default StorePage

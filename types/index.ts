@@ -1,7 +1,13 @@
 export interface IStore {
-	id?: string
+	id: string
 	userId: string
 	name: string
+	createdAt: Date
+	updatedAt: Date
+}
+
+export interface ICompany {
+	id: string
 	createdAt: Date
 	updatedAt: Date
 }
@@ -14,7 +20,7 @@ export interface IOrderItem {
 }
 
 export interface IOrder {
-	id?: string
+	id: string
 	paymentStatus: any
 	orderStatus: any
 	orderNumber: any
@@ -35,7 +41,7 @@ export interface IUser {
 }
 
 export interface IProduct {
-	id?: string
+	id: string
 	name: string
 	description?: string
 	price?: number
@@ -43,7 +49,7 @@ export interface IProduct {
 }
 
 export interface ICategory {
-	id?: string
+	id: string
 	name: string
 	slug: string
 }

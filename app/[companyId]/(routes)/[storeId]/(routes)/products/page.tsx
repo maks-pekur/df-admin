@@ -1,7 +1,7 @@
 import { Container } from '@/components/container'
 import { ProductsPageClient } from '@/components/products/products-page-client'
 import { DataTable } from '@/components/ui/data-table'
-import { columns } from '../../../../components/products/columns'
+import { columns } from '../../../../../../components/products/columns'
 
 interface ProductsPageProps {
 	params: {

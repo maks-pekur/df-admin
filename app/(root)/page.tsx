@@ -1,3 +1,5 @@
-export default function SetupPage() {
-	return <div>В вашей компании еще нет магазинов</div>
+const HomePage = () => {
+	return null
 }
+
+export default HomePage

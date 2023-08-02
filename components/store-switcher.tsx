@@ -49,7 +49,7 @@ export const StoreSwitcher: React.FC<StoreSwitcherProps> = ({
 
 	const onStoreSelect = (store: { value: string; label: string }) => {
 		setOpen(false)
-		router.push(`/${store.value}`)
+		router.push(`/${params.companyId}/${store.value}`)
 	}
 
 	return (

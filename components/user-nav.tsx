@@ -1,8 +1,6 @@
 'use client'
 
-import { IUser } from '@/types'
 import { LogOut } from 'lucide-react'
-import { signOut } from 'next-auth/react'
 import { Avatar, AvatarFallback } from './ui/avatar'
 import { Button } from './ui/button'
 import {
@@ -16,11 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 
-interface UserNavProps {
-	user: IUser
-}
-
-export const UserNav = ({ user }: UserNavProps) => {
+export const UserNav = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -33,9 +27,9 @@ export const UserNav = ({ user }: UserNavProps) => {
 			<DropdownMenuContent className="w-56" align="end" forceMount>
 				<DropdownMenuLabel className="font-normal">
 					<div className="flex flex-col space-y-1">
-						<p className="text-sm font-medium leading-none">{user.role}</p>
+						<p className="text-sm font-medium leading-none">ljkjabfnksl</p>
 						<p className="text-xs leading-none text-muted-foreground">
-							{user.email}
+							ljklhvjghjlkl
 						</p>
 					</div>
 				</DropdownMenuLabel>
@@ -57,7 +51,7 @@ export const UserNav = ({ user }: UserNavProps) => {
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					className="flex items-center justify-between"
-					onClick={() => signOut()}
+					onClick={() => {}}
 				>
 					Log out
 					<LogOut className="w-4 h-4" />
